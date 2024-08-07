@@ -12,24 +12,30 @@ export const Navbar = ()=>
         setChangeColor(newChangeColor);
   
     };
+    const [type,setType]=useState<string>("");
+    console.log(type)
     return(
      
         <div className="bg-blue-200 h-98">
             <div className="mx-20 my-4 border-2 flex items-center justify-between">
             <img src={Logo}/>
             <ul className="flex space-x-8 text-gray-500">
-                <li className={changeColor[0]?"text-black":"" }
-                   onClick={()=>handleClickHeader(0)}
+                <li className={type==="Tapos" ?"text-black":"" }
+                   onClick={()=>{  setType("Tapos"); }}
+                key="Tapos"
                 >Tapos</li>   
-                <li className={changeColor[1]?"text-black":""}
-                      onClick={()=>handleClickHeader(1)}
-                      >Wallet</li>
-                <li className={changeColor[2]?"text-black":""}
-                      onClick={()=>handleClickHeader(2)}
+                <li className={type==="Wallet"?"text-black":""}
+                      onClick={()=>setType("Wallet")}
+                    key="Wallet"
+                    >Wallet</li>
+                <li className={type==="Leaderboard"?"text-black":""}
+                      onClick={()=>setType("Leaderboard")}
+                        key="Leaderboard"
                        >Leaderboard</li>
-                <li className={changeColor[3]?"text-black":""}
-                      onClick={()=>handleClickHeader(3)}
-                       >Shop</li>
+                <li className={type==="Shop"?"text-black":""}
+                      onClick={()=>setType("Shop")}
+                      key="Shop"
+                      >Shop</li>
                 <li className="flex items-center text-orange-600 font-medium">More <img src={ChevronDown}></img> </li>
             </ul>
             
