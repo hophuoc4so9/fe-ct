@@ -4,14 +4,14 @@ import { useState } from "react";
 export const Navbar = ()=>
 {
     const [active,setActive]=useState<boolean>(true);
-    const [changeColor,setChangeColor]=useState<boolean[]>([false, false, false,false]);
-    const handleClickHeader = (index: number) => {
-        const newChangeColor = [false, false, false,false];
-        console.log(newChangeColor)
-        newChangeColor[index] = true;
-        setChangeColor(newChangeColor);
+    // const [changeColor,setChangeColor]=useState<boolean[]>([false, false, false,false]);
+    // const handleClickHeader = (index: number) => {
+    //     const newChangeColor = [false, false, false,false];
+    //     console.log(newChangeColor)
+    //     newChangeColor[index] = true;
+    //     setChangeColor(newChangeColor);
   
-    };
+    // };
     const [type,setType]=useState<string>("");
     console.log(type)
     return(
