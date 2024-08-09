@@ -16,8 +16,8 @@ export const Navbar = ()=>
     console.log(type)
     return(
      
-        <div className="bg-blue-200 h-98">
-            <div className="mx-20 my-4 border-2 flex items-center justify-between">
+        <div className=" h-98">
+            <div className="mx-20 my-4 flex items-center justify-between">
             <img src={Logo}/>
             <ul className="flex space-x-8 text-gray-500">
                 <li className={type==="Tapos" ?"text-black":"" }
