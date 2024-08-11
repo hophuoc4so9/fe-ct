@@ -20,7 +20,7 @@ export const AppButton = ({className,loading,children,diabled,type="button",onCl
             onClick={onClick}
         >
             
-             {loading ? <Spin></Spin>:""}
+             {loading&&!diabled ? <Spin></Spin>:""}
             {children}
         </button>
     )

@@ -1,17 +1,41 @@
 import Logo  from "../assets/logo.svg";
-import ChevronDown from "../assets/chevron-down.svg";
+import clsx from "clsx";
+//import ChevronDown from "../assets/chevron-down.svg";
 import { useState } from "react";
+import { siteMenu } from "../common/config/site";
+import { ButtonTab } from "../compoment/button/ButtonTab";
+import { RouterLink } from "../util/Routerlink";
 export const Navbar = ()=>
 {
-    const [active,setActive]=useState<boolean>(true);
+    
 
-    const [type,setType]=useState<string>("");
-    console.log(type)
+    const [type,setType]=useState<string>(RouterLink.TAPOS);
+  
     return(
      
-        <div className=" h-98">
-            <div className="mx-20 my-4 flex items-center justify-between">
+        <div className=" h-98 max-w-[1200px] mx-auto py-[29px] items-center justify-between flex">
+
             <img src={Logo}/>
+            <div className="flex gap-8">
+            {
+                siteMenu.map((e)=>{
+                    return <div
+                    key={e.title}
+                            onClick={() => setType(e.link)}
+                            className={clsx(
+                                    type === e.link ? " text-neutral-500": "text-neutral-400",
+                                "font-bold text-base cursor-pointer"
+                                )
+                                }
+                    >
+                        
+                        {e.title} </div>
+                })
+            }
+            </div>
+            <ButtonTab />
+            {/* <div className="max-w[1200px] m-x-auto my-4 flex items-center justify-between">
+           
             <ul className="flex space-x-8 text-gray-500">
                 <li className={type==="Tapos" ?"text-black":"" }
                    onClick={()=>{  setType("Tapos"); }}
@@ -33,14 +57,14 @@ export const Navbar = ()=>
             </ul>
             
             <ul className="flex border-2 rounded-2xl border-amber-400 bg-rose-200 font-medium">
-                <li className={ active?"bg-rose-500 rounded-2xl px-2 py-1 text-white" :"rounded-2xl px-2 py-1" } 
+                <li className={`z-10 w-1/2 text-center rounded-2xl  cursor-pointer px-2 py-1 ${active ? 'text-white bg-rose-500 ' : 'text-black text-black '}`}
                 onClick={()=>{setActive(!active)}} >Mainnet</li>   
-                <li className={ !active?"bg-rose-500 rounded-2xl px-2 py-1 text-white" :"rounded-2xl px-2 py-1"} 
+                <li className={`z-10 w-1/2 text-center rounded-2xl  cursor-pointer px-2 py-1 ${!active ? 'text-white bg-rose-500 ' : 'text-black translate-x-0 '}`}
                 onClick={()=>{setActive(!active)}} >Testnet</li>
                 
             </ul>
 
-            </div>
+            </div> */}
         
         </div>
     )

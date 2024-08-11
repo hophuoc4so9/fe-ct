@@ -1,14 +1,29 @@
 import iconNext from "../assets/IconNext1.svg"
 import { AppButton } from "../compoment/button/AppButton"
-import { useState } from "react"
-export const Content = ()=>
+import { useEffect, useState } from "react"
+
+interface CommonComponentProps {
+    content: any;
+}
+
+export const Content: React.FC<CommonComponentProps> = ({ content })=>
 {
-   
+    const [connectXAcc,setConnectXAcc]=useState<string>("Connect your X account")
     const [connectToX,setConnectToX]=useState<boolean>(false);
- 
+    
+    useEffect(() => {
+        if(content === undefined || content === null)
+        {
+            setConnectXAcc("Connect your X account")
+        }
+        else
+        {
+            setConnectXAcc(`@${content.twitterUsername}`)
+        }
+    }, [content]);
     return(
        
-        <div className="mx-10 border-2 border-red-400">
+        <div className="mx-10 border-red-400">
            
             <div>
                 <p className="text-4xl font-bold text-center"> Social Tasks</p>
@@ -24,7 +39,9 @@ export const Content = ()=>
                             <AppButton className="bg-orange-500 text-white font-medium"
                              loading={connectToX} 
                              onClick={()=>setConnectToX(!connectToX)} 
-                             >Connect your X account</AppButton>
+                             diabled={ !(content === undefined || content === null) }
+                             >{connectXAcc}</AppButton>
+                            
                         </div>
                     </div>
                 </div>
