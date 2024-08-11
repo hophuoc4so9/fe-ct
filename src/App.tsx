@@ -4,13 +4,13 @@ import { Navbar } from "./layout/Navbar";
 
 import { Content } from "./layout";
 import { useEffect,useState } from "react";
-import { IUser } from "./type";
+//import { IUser } from "./type";
 import { HomeAPI } from "./services/homeService";
 
 import Search, { SearchProps } from "antd/es/input/Search";
 import { notification } from "antd";
 function App() {
-  const [user, setUser] = useState<IUser[]>([]);
+  //const [user, setUser] = useState<IUser[]>([]);
   const [userInfo, setUserInfo] = useState<any>();
   const getUser = async (address: string) => {
         try {
@@ -54,17 +54,13 @@ function App() {
           });
           }
     };
-  const onSearch: SearchProps["onSearch"] = (value, e, info) => {getUser(value)};
-  const onCreateUser: SearchProps["onSearch"] = (value, e, info) => {create(value)};
+  const onSearch: SearchProps["onSearch"] = (value) => {getUser(value)};
+  const onCreateUser: SearchProps["onSearch"] = (value) => {create(value)};
   return(
     <div className="bg-gradient-to-b from-white rose-100 to-rose-200">
        <Navbar/>
        <Content  content= {userInfo} />
-       {
-        user?.map(()=>{
-          return <div> {user.length} </div>
-        })
-       }
+      
       <p>== =================get user by Id=============</p>
       <Search
           placeholder="input search text"
