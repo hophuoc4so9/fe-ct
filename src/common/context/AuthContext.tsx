@@ -1,7 +1,7 @@
-import { Children, createContext, PropsWithChildren, useContext, useState } from "react";
+import {  createContext, PropsWithChildren, useContext, useState } from "react";
 import { User } from "../../type";
 import { RouterLink } from "../../util/Routerlink";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { KEY_LOCAL_USER } from "../constan";
 
 interface AuthContextType {
@@ -34,9 +34,7 @@ export const AuthProvider = ({children}:PropsWithChildren) =>{
             logout,
         }
     }>
-        {
-            children
-        }
+        {   children   }
     </AuthContext.Provider>
 }
 
