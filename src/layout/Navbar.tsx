@@ -1,19 +1,22 @@
 import Logo  from "../assets/logo.svg";
 import clsx from "clsx";
 //import ChevronDown from "../assets/chevron-down.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { siteMenu } from "../common/config/site";
 import { ButtonTab } from "../compoment/button/ButtonTab";
 import { RouterLink } from "../util/Routerlink";
+import { useLocation, useNavigate } from "react-router-dom";
 export const Navbar = ()=>
 {
-    
-
-    const [type,setType]=useState<string>(RouterLink.TAPOS);
-  
+    const location=useLocation()
+    const navigate= useNavigate()
+    const [type,setType]=useState<string>(RouterLink.TAPOS); 
+    useEffect(()=>{
+        setType(location.pathname)
+    },[])
     return(
      
-        <div className=" h-98 max-w-[1200px] mx-auto py-[29px] items-center justify-between flex">
+        <div className=" h-98 max-w-[1200px] mx-auto py-[29px] items-center justify-between flex ">
 
             <img src={Logo}/>
             <div className="flex gap-8">
@@ -21,7 +24,12 @@ export const Navbar = ()=>
                 siteMenu.map((e)=>{
                     return <div
                     key={e.title}
-                            onClick={() => setType(e.link)}
+                            onClick={() =>{
+                                navigate(e.link)
+                                setType(e.link)
+                            } 
+                                
+                            }
                             className={clsx(
                                     type === e.link ? " text-neutral-500": "text-neutral-400",
                                 "font-bold text-base cursor-pointer"

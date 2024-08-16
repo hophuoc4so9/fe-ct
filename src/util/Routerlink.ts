@@ -1,8 +1,10 @@
 export enum RouterLink {
     Login = "/login",
     Home = "/",
-    TAPOS = "/tapos",
+   // TAPOS = "/tapos",
+   TAPOS = "/",
     WALLET = "/WALLET",
     Leaderboard="/Leaderboard",
-    Shop="/Shop"
+    Shop="/Shop",
+    NOT_AUTH = "/NotAuth",
 }

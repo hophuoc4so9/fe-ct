@@ -1,94 +1,42 @@
 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import {LayoutApp} from "./common/layout/layoutApp";
+import { HomePage } from "./pages/homePage/homePage";
+import { RouterLink } from "./util/Routerlink";
+import { LeadPage } from "./pages/Lead";
+import { WalletPage } from "./pages/Wallet";
+import { AuthProvider } from "./common/context/AuthContext";
+import { Login } from "./pages/auth/login";
+import { NoAuth } from "./pages/auth/NoAuth";
+import PrivateRoute from "./common/context/PrivateRoute";
+import { ROLE, RoleAll } from "./common/constan";
 
-import { Navbar } from "./layout/Navbar";
 
-import { Content } from "./layout";
-import { useEffect,useState } from "react";
-//import { IUser } from "./type";
-import { HomeAPI } from "./services/homeService";
-
-import Search, { SearchProps } from "antd/es/input/Search";
-import { notification } from "antd";
 function App() {
-  //const [user, setUser] = useState<IUser[]>([]);
-  const [userInfo, setUserInfo] = useState<any>();
-  const getUser = async (address: string) => {
-        try {
-        const rq = await HomeAPI.getUserById(address);
-        if (rq?.success ) {
-          setUserInfo(rq?.msg)
-         
-      } else {
-          setUserInfo(undefined)
-      }
-        } catch (error)
-        {
-          console.log(error);
-        }
-};
-  useEffect(() => {
+    return (
+      <div className="bg-gradient-to-b from-white rose-100 to-rose-200">
+      <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path={RouterLink.Login} element={<Login />}/>
+          <Route element={<LayoutApp />}>
+            <Route path={RouterLink.Home} element={<HomePage />}/>
 
-  }, []);
-  const create =  async (address: string) => {
-          try {
-          const rg = await HomeAPI.createUser({
-          address: address,
-          password: "1234156",
-          });
-          if(rg?.success)
-          {
-            notification.info({
-              message: "success",
-              })
-              
-            }else  {
-                notification.warning({
-                message: "error",
-                })
-            }
-          }
-         catch (error)
-          {console.log(error);
-          notification.error({
-          message: "error",
-          });
-          }
-    };
-  const onSearch: SearchProps["onSearch"] = (value) => {getUser(value)};
-  const onCreateUser: SearchProps["onSearch"] = (value) => {create(value)};
-  return(
-    <div className="bg-gradient-to-b from-white rose-100 to-rose-200">
-       <Navbar/>
-       <Content  content= {userInfo} />
-      
-      <p>== =================get user by Id=============</p>
-      <Search
-          placeholder="input search text"
-          allowClear
-          enterButton="Search"
-          size="large"
-        onSearch={onSearch}
-    />
-  
-       {
-        userInfo ? (  
-          <>
-            <p>address: {userInfo?.address}</p>
-            <p>twitterUsername: {userInfo?.twitterUsername}</p>
-          </>
+            <Route element={<PrivateRoute roles={RoleAll}/>}>
+              <Route path={RouterLink.WALLET} element={<WalletPage />}/>
+            </Route>
+            
+            <Route element={<PrivateRoute roles={[ROLE.ADMIN]}/>}>
+              <Route path={RouterLink.Leaderboard} element={<LeadPage />}/>
+            </Route>
 
-        ):("")
-       }
-       <p>== =================Create user by Id=============</p>
-      <Search
-          placeholder="input search text"
-          allowClear
-          enterButton="Create"
-          size="large"
-        onSearch={onCreateUser}
-    />
+          </Route>
+          <Route path="*" element={<NoAuth />}/>
+       </Routes>
+      </AuthProvider>
+    </BrowserRouter>
     </div>
+    )
    
-  )
 }
 export default App

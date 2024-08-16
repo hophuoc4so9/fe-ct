@@ -23,7 +23,7 @@ export const Content: React.FC<CommonComponentProps> = ({ content })=>
     }, [content]);
     return(
        
-        <div className="mx-10 border-red-400">
+        <div className="mx-10 border-red-400 ">
            
             <div>
                 <p className="text-4xl font-bold text-center"> Social Tasks</p>
