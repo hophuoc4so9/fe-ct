@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import { useEffect, useState } from "react";
 import { IUser } from "../../../type";
 import { HomeAPI } from "../../../services/homeService";
@@ -51,11 +51,34 @@ export const TableAnt = () => {
          
         
     } ,[]) 
-   
+    const pageSize = 10; 
+    const totalRows = user?.length;
+  const totalPages = Math.ceil((totalRows===undefined? 0:totalRows / pageSize  ));
+
+  const paginationConfig = {
+    pageSize,
+    total: totalRows,
+    itemRender: (current, type, originalElement) => {
+      if (type === 'prev') {
+        return<Button className="ba">Previous</Button>;
+      }
+      if (type === 'next') {
+        return<Button>Next</Button>;
+      }
+      if (type === 'page') {
+        return (
+          <a>
+            Page {current} of {totalPages}
+          </a>
+        );
+      }
+      return originalElement;
+    },
+  };
     return (
         <div className="max-w-[1200px] mx-auto ">
            
-            <Table dataSource={user} columns={columns} className="rounded-3xl"/>;
+            <Table dataSource={user} columns={columns} pagination={paginationConfig} />;
         </div>
     )
 }
