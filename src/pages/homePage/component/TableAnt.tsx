@@ -58,7 +58,7 @@ export const TableAnt = () => {
   const paginationConfig = {
     pageSize,
     total: totalRows,
-    itemRender: (current, type, originalElement) => {
+    itemRender: (current:any, type:any, originalElement:any) => {
       if (type === 'prev') {
         return<Button className="ba">Previous</Button>;
       }
